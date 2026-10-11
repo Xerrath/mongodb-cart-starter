@@ -1,7 +1,7 @@
 // api.js: everything the PAGE says to the SERVER lives in this file.
+// The server keeps the inventory in MongoDB. (Your cart is in db.js, in IndexedDB.)
 // cart.js calls these functions. YOU write them, one day at a time.
 // Each one throws "not built yet" until you replace that line with your code.
-// Same names as your IndexedDB db.js: only the inside changes.
 
 // ALREADY DONE: fetch does NOT throw on a 404 or a 500. readJSON() reads the server's answer.
 // If the status is OK, it gives back the data. If not, it throws the server's error message.
@@ -15,6 +15,13 @@ async function readJSON(response) {
   return data;
 }
 
+// ALREADY DONE: the "not built yet" errors. cart.js knows to skip a check that isn't built.
+function notBuilt(text) {
+  const error = new Error(text);
+  error.notBuilt = true;
+  return error;
+}
+
 // ALREADY DONE (your example): GET /api/status
 // Gives back { database, where, collections } for the green status line.
 async function getStatus() {
@@ -22,38 +29,39 @@ async function getStatus() {
   return readJSON(response);
 }
 
+// ALREADY DONE: POST /api/reset puts the first six products back (the Reset inventory button).
+async function resetInventory() {
+  const response = await fetch("/api/reset", { method: "POST" });
+  return readJSON(response);
+}
+
 // ---------- Day 2: READ ----------
 // Gives back an array of every product (from GET /api/products).
 async function getProducts() {
-  throw new Error("getProducts() is not built yet (Day 2)");
-}
-
-// Gives back an array of every item in the cart (from GET /api/cart).
-async function getCart() {
-  throw new Error("getCart() is not built yet (Day 2)");
+  throw notBuilt("getProducts() is not built yet (Day 2)");
 }
 
 // ---------- Day 3: CREATE ----------
-// product: one product from getProducts().
-// Asks the server to put it in the cart (POST /api/cart).
-async function addToCart(product) {
-  throw new Error("addToCart() is not built yet (Day 3)");
+// product: { id, name, price, emoji, stock } from the Inventory form.
+// Asks the server to add it to the store (POST /api/products).
+async function createProduct(product) {
+  throw notBuilt("createProduct() is not built yet (Day 3)");
 }
 
 // ---------- Day 3: UPDATE ----------
-// id: which item. amount: 1 or -1.
-// Asks the server to change that item's qty (PATCH /api/cart/:id).
-async function changeQuantity(id, amount) {
-  throw new Error("changeQuantity() is not built yet (Day 3)");
+// id: which product. amount: how many to add (5) or take away (-1).
+// Asks the server to change that product's stock (PATCH /api/products/:id/stock).
+async function changeStock(id, amount) {
+  throw notBuilt("changeStock() is not built yet (Day 3)");
 }
 
-// ---------- Day 4: DELETE ----------
-// id: which item. Asks the server to take it out of the cart (DELETE /api/cart/:id).
-async function removeFromCart(id) {
-  throw new Error("removeFromCart() is not built yet (Day 4)");
+// ---------- Day 4: the server says no ----------
+// items: [{ id, qty }]. Asks the server if this cart can be bought (POST /api/check).
+async function checkItems(items) {
+  throw notBuilt("checkItems() is not built yet (Day 4)");
 }
 
-// Asks the server to empty the whole cart (DELETE /api/cart).
-async function clearCart() {
-  throw new Error("clearCart() is not built yet (Day 4)");
+// items: [{ id, qty }]. Asks the server to sell them (POST /api/checkout).
+async function checkout(items) {
+  throw notBuilt("checkout() is not built yet (Day 4)");
 }

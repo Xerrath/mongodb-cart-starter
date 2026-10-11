@@ -1,8 +1,13 @@
-# MongoDB Cart Starter
+# MongoDB Cart Starter: Two Databases, Two Jobs
 
-West-MEC Coding Year 2. Your IndexedDB shopping cart moves to a **server**.
+West-MEC Coding Year 2. Your IndexedDB shopping cart gets a **server** and a real **inventory**.
 
-Same shop, same buttons. This time the cart lives in **MongoDB**, and an **Express** server sits between the page and the database. Open the shop in two different browsers: same cart.
+| What | Where it lives | Why there |
+| --- | --- | --- |
+| **Your cart** | **IndexedDB**, in your browser (`public/db.js`, you built it) | It belongs to one shopper on one device. |
+| **The store's products and stock** | **MongoDB**, on the server (`server.js`, you build it this week) | Everyone shares it, and the server has the final say. |
+
+By the end of the week the server says **no** when it should: an item that doesn't exist (404), not enough stock (409), bad data (400). Create new products, restock them, and check out. Open the shop in two browsers: two different carts, the same shelves.
 
 You start on a **practice server** that runs on your own computer: no account, nothing to pay for. When your group does the Atlas setup, you switch to **MongoDB Atlas** (the cloud) by pasting one line into `.env`.
 
@@ -46,34 +51,36 @@ You start on a **practice server** that runs on your own computer: no account, n
    npm start
    ```
 
-8. Open **http://localhost:3000** in Chrome. Gray line `connectDB() is not built yet (Day 1)`? That's right: you build it.
+8. Open **http://localhost:3000** in Chrome. Gray line `Inventory not connected: connectDB() is not built yet (Day 1)`? That's right: you build it.
 
-Stop the server with **Ctrl+C**. After you change a server file (`db.js`, `server.js`), stop it and `npm start` again. After you change `public/api.js`, just refresh the page.
+Stop the server with **Ctrl+C**. After you change a server file (`mongo.js`, `server.js`), stop it and `npm start` again. After you change `public/api.js`, just refresh the page.
 
 ## The files
 
 | File | What it is | Do you change it? |
 | --- | --- | --- |
-| `db.js` | Connects the server to MongoDB. | **Yes (Day 1)** |
+| `mongo.js` | Connects the server to MongoDB (`inventoryDB`). | **Yes (Day 1)** |
 | `server.js` | The Express server and every `/api` route. | **Yes (Days 2 to 4)** |
 | `public/api.js` | Every `fetch` the page makes to the server. | **Yes (Days 2 to 4)** |
-| `public/cart.js` | Draws the page and calls `api.js`. | No (read it!) |
+| `public/db.js` | Your IndexedDB cart (`shopDB`, store `cart`). | No: you built it last unit |
+| `public/cart.js` | Draws the page and decides which database each button uses. | No (read it!) |
 | `public/index.html`, `global.css`, `images/` | The shop page. | No |
-| `setup/` | Practice server, products, status route, MongoDB download. | No |
+| `setup/` | Practice server, first products, status and reset routes, MongoDB download. | No |
 | `.env` | Your connection string. **Never on GitHub.** | Only to switch to Atlas |
 
 ![Class diagram](images/cart-server-class-diagram.png)
 
 ## See your data
 
-- Any GET route: open it in the browser, like **http://localhost:3000/api/cart**.
-- On Atlas: **Data Explorer** (Browse Collections) > `shopDB`.
+- **Inventory (MongoDB):** any GET route in the browser, like **http://localhost:3000/api/products**. On Atlas: **Data Explorer** (Browse Collections) > `inventoryDB` > `products`.
+- **Cart (IndexedDB):** DevTools (F12) > **Application** > **IndexedDB** > `shopDB` > `cart`.
+- **Start the inventory over:** the **Reset inventory** button puts the first six products back.
 
 ## Switch to Atlas (after your group's Atlas setup)
 
 1. Open `.env`. Paste your connection string after `MONGODB_URI=` (no spaces, no quotes, with your real password in it).
 2. Stop the server (Ctrl+C) and `npm start` again.
-3. The terminal and the page say **MongoDB Atlas**. Your cart starts empty: it's a different database.
+3. The terminal and the page say **MongoDB Atlas**. The first six products are put in for you. Your cart doesn't change: it's still in your browser.
 
 Back to the practice server: delete everything after `MONGODB_URI=` and restart.
 

@@ -1,7 +1,7 @@
 {
   "name": "mongodb-cart-starter",
   "version": "1.0.0",
-  "description": "West-MEC Coding Year 2: move the shopping cart from IndexedDB to a MongoDB server with Express",
+  "description": "West-MEC Coding Year 2: the cart stays in IndexedDB, the inventory moves to MongoDB behind an Express server",
   "type": "module",
   "main": "server.js",
   "scripts": {

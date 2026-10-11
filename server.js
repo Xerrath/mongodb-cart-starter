@@ -1,7 +1,8 @@
 // server.js: the shop's server. Express sends the shop page AND answers every /api request.
+// The INVENTORY lives here, in MongoDB: every browser shares it, and the server has the final say.
 // YOU write the routes, one day at a time. Each one answers 501 "not built yet" until you build it.
 import express from "express";
-import { connectDB } from "./db.js";
+import { connectDB } from "./mongo.js";
 import { setUpShop } from "./setup/shop.js";
 
 const PORT = 3000;
@@ -13,7 +14,8 @@ app.use(express.static("public"));
 // ---------- Day 3: read JSON bodies ----------
 
 
-// ALREADY DONE: connects with your connectDB(), fills the products collection, adds GET /api/status.
+// ALREADY DONE: connects with your connectDB(), fills the products collection the first time,
+// adds GET /api/status and POST /api/reset.
 const db = await setUpShop(app, connectDB);
 
 // ---------- Day 2: READ ----------
@@ -22,34 +24,36 @@ app.get("/api/products", async (req, res) => {
   res.status(501).json({ error: "GET /api/products is not built yet (Day 2)" });
 });
 
-// GET /api/cart: sends back an array of every item in the cart.
-app.get("/api/cart", async (req, res) => {
-  res.status(501).json({ error: "GET /api/cart is not built yet (Day 2)" });
+// GET /api/products/:id: sends back ONE product, or 404 if there's no product with that id.
+app.get("/api/products/:id", async (req, res) => {
+  res.status(501).json({ error: "GET /api/products/:id is not built yet (Day 2)" });
 });
 
 // ---------- Day 3: CREATE ----------
-// POST /api/cart   body: { "id": "hoodie" }
-// Puts that product in the cart with qty 1, or adds 1 to qty if it's already there.
-app.post("/api/cart", async (req, res) => {
-  res.status(501).json({ error: "POST /api/cart is not built yet (Day 3)" });
+// POST /api/products   body: { "id": "socks", "name": "Team Socks", "price": 9.5, "emoji": "🧦", "stock": 12 }
+// Adds a new product to the store. 400 if something is missing, 409 if the id is taken.
+app.post("/api/products", async (req, res) => {
+  res.status(501).json({ error: "POST /api/products is not built yet (Day 3)" });
 });
 
 // ---------- Day 3: UPDATE ----------
-// PATCH /api/cart/:id   body: { "amount": 1 } or { "amount": -1 }
-// Changes that item's qty by amount.
-app.patch("/api/cart/:id", async (req, res) => {
-  res.status(501).json({ error: "PATCH /api/cart/:id is not built yet (Day 3)" });
+// PATCH /api/products/:id/stock   body: { "amount": 5 } or { "amount": -1 }
+// Restocks (or takes away) that product's stock. Stock can never go below 0.
+app.patch("/api/products/:id/stock", async (req, res) => {
+  res.status(501).json({ error: "PATCH /api/products/:id/stock is not built yet (Day 3)" });
 });
 
-// ---------- Day 4: DELETE ----------
-// DELETE /api/cart/:id: takes that item out of the cart.
-app.delete("/api/cart/:id", async (req, res) => {
-  res.status(501).json({ error: "DELETE /api/cart/:id is not built yet (Day 4)" });
+// ---------- Day 4: the server says no ----------
+// POST /api/check   body: { "items": [{ "id": "hoodie", "qty": 2 }] }
+// Can this cart be bought? 200 if yes. 404 if an item doesn't exist, 409 if there aren't enough.
+app.post("/api/check", async (req, res) => {
+  res.status(501).json({ error: "POST /api/check is not built yet (Day 4)" });
 });
 
-// DELETE /api/cart: empties the whole cart.
-app.delete("/api/cart", async (req, res) => {
-  res.status(501).json({ error: "DELETE /api/cart is not built yet (Day 4)" });
+// POST /api/checkout   body: { "items": [{ "id": "hoodie", "qty": 2 }] }
+// Checks the cart again, then takes the items out of stock. Sends back the total.
+app.post("/api/checkout", async (req, res) => {
+  res.status(501).json({ error: "POST /api/checkout is not built yet (Day 4)" });
 });
 
 app.listen(PORT, () => {

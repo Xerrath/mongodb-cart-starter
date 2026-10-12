@@ -36,7 +36,7 @@ You start on a **practice server** that runs on your own computer: no account, n
    npm install
    ```
 
-5. Is the practice MongoDB already on this computer? (You may have it from Your First Database.)
+5. Is the practice MongoDB already on this computer? (If you did Day 1, Your First Database, on this computer, you already have it.)
 
    ```
    npm run check-mongodb
@@ -51,7 +51,7 @@ You start on a **practice server** that runs on your own computer: no account, n
    npm start
    ```
 
-8. Open **http://localhost:3000** in Chrome. Gray line `Inventory not connected: connectDB() is not built yet (Day 1)`? That's right: you build it.
+8. Open **http://localhost:3000** in Chrome. Gray line `Inventory not connected: connectDB() is not built yet (Day 2)`? That's right: you build it.
 
 Stop the server with **Ctrl+C**. After you change a server file (`mongo.js`, `server.js`), stop it and `npm start` again. After you change `public/api.js`, just refresh the page.
 
@@ -59,7 +59,7 @@ Stop the server with **Ctrl+C**. After you change a server file (`mongo.js`, `se
 
 | File | What it is | Do you change it? |
 | --- | --- | --- |
-| `mongo.js` | Connects the server to MongoDB (`inventoryDB`). | **Yes (Day 1)** |
+| `mongo.js` | Connects the server to MongoDB (`inventoryDB`). | **Yes (Day 2)** |
 | `server.js` | The Express server and every `/api` route. | **Yes (Days 2 to 4)** |
 | `public/api.js` | Every `fetch` the page makes to the server. | **Yes (Days 2 to 4)** |
 | `public/db.js` | Your IndexedDB cart (`shopDB`, store `cart`). | No: you built it last unit |

@@ -58,7 +58,7 @@ function flash(button, text) {
   }, 900);
 }
 
-// Asks the server if these items can be bought (Day 4: checkItems).
+// Asks the server if these items can be bought (Day 5: checkItems).
 // Until you build checkItems, the page skips this check.
 async function askServer(items) {
   try {
@@ -81,7 +81,7 @@ async function renderStatus() {
   }
 }
 
-// ---------- Products (Day 2: getProducts) ----------
+// ---------- Products (Day 3: getProducts) ----------
 function stockBadge(stock) {
   if (stock === 0) return `<span class="rounded-md bg-flame px-2 py-0.5 text-sm font-bold text-white">Sold out</span>`;
   if (stock <= 3) return `<span class="rounded-md bg-navy px-2 py-0.5 text-sm font-bold text-white">Only ${stock} left</span>`;
@@ -161,7 +161,7 @@ async function renderCart() {
 // ---------- Inventory panel (the server: getProducts, changeStock) ----------
 function renderInventory() {
   if (products.length === 0) {
-    inventoryList.innerHTML = `<li class="text-navy/60">No products to show yet (getProducts, Day 2).</li>`;
+    inventoryList.innerHTML = `<li class="text-navy/60">No products to show yet (getProducts, Day 3).</li>`;
     return;
   }
   inventoryList.innerHTML = products.map((product) => `
@@ -196,7 +196,7 @@ document.body.addEventListener("click", async (event) => {
 
   try {
     if (action === "add" || action === "plus") {
-      // How many would be in the cart after this click? Ask the SERVER first (Day 4).
+      // How many would be in the cart after this click? Ask the SERVER first (Day 5).
       const cart = await getCart();
       const inCart = cart.find((item) => item.id === id);
       const qty = (inCart ? inCart.qty : 0) + 1;
@@ -207,7 +207,7 @@ document.body.addEventListener("click", async (event) => {
     }
     if (action === "minus") await changeQuantity(id, -1);                          // IndexedDB
     if (action === "remove") await removeFromCart(id);                             // IndexedDB
-    if (action === "stock") await changeStock(id, Number(button.dataset.amount));  // Day 3
+    if (action === "stock") await changeStock(id, Number(button.dataset.amount));  // Day 4
     if (action === "reset") await resetInventory();                                // given
     hideMessages();
     if (action === "add") flash(button, "Added ✓");
@@ -228,7 +228,7 @@ clearButton.addEventListener("click", async () => {
   await renderAll();
 });
 
-// Checkout: the server sells the items (Day 4). Only if it says yes does the cart get emptied.
+// Checkout: the server sells the items (Day 5). Only if it says yes does the cart get emptied.
 checkoutButton.addEventListener("click", async () => {
   try {
     const cart = await getCart();
@@ -242,7 +242,7 @@ checkoutButton.addEventListener("click", async () => {
   await renderAll();
 });
 
-// New product form (Day 3: createProduct)
+// New product form (Day 4: createProduct)
 productForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = new FormData(productForm);

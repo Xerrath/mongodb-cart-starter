@@ -35,33 +35,33 @@ async function resetInventory() {
   return readJSON(response);
 }
 
-// ---------- Day 2: READ ----------
+// ---------- Day 3: READ ----------
 // Gives back an array of every product (from GET /api/products).
 async function getProducts() {
-  throw notBuilt("getProducts() is not built yet (Day 2)");
+  throw notBuilt("getProducts() is not built yet (Day 3)");
 }
 
-// ---------- Day 3: CREATE ----------
+// ---------- Day 4: CREATE ----------
 // product: { id, name, price, emoji, stock } from the Inventory form.
 // Asks the server to add it to the store (POST /api/products).
 async function createProduct(product) {
-  throw notBuilt("createProduct() is not built yet (Day 3)");
+  throw notBuilt("createProduct() is not built yet (Day 4)");
 }
 
-// ---------- Day 3: UPDATE ----------
+// ---------- Day 4: UPDATE ----------
 // id: which product. amount: how many to add (5) or take away (-1).
 // Asks the server to change that product's stock (PATCH /api/products/:id/stock).
 async function changeStock(id, amount) {
-  throw notBuilt("changeStock() is not built yet (Day 3)");
+  throw notBuilt("changeStock() is not built yet (Day 4)");
 }
 
-// ---------- Day 4: the server says no ----------
+// ---------- Day 5: the server says no ----------
 // items: [{ id, qty }]. Asks the server if this cart can be bought (POST /api/check).
 async function checkItems(items) {
-  throw notBuilt("checkItems() is not built yet (Day 4)");
+  throw notBuilt("checkItems() is not built yet (Day 5)");
 }
 
 // items: [{ id, qty }]. Asks the server to sell them (POST /api/checkout).
 async function checkout(items) {
-  throw notBuilt("checkout() is not built yet (Day 4)");
+  throw notBuilt("checkout() is not built yet (Day 5)");
 }
